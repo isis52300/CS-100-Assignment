@@ -112,16 +112,16 @@ See prototype/ directory.
 
 # Development and Testing Roadmap
 
-1. Develop a Directory object so that if the user wants to make a new directory or see the directories that are already made, that information can be stored there
+1. [Develop a Directory object](https://github.com/cs100/assignment-team-blue/issues/1) so that if the user wants to make a new directory or see the directories that are already made, that information can be stored there
 
     1. This will have a vector of all of the directories that the user created as well as the hidden directories that the user can use
   
-1. Make the Execute class so that it can execute commands based on the tokens that were passed through  
+1. [Make the Execute class](https://github.com/cs100/assignment-team-blue/issues/2) so that it can execute commands based on the tokens that were passed through  
 
     1. This class will have different functions to execute different executables 
   
     1. It will also have a function that outputs error messages if the user inputs executables that does not exist or input incorrectly  
   
-1. Create the Token class and it’s virtual functions to build be able to have a baseline for the subclasses 
+1. [Create the Token class and its virtual functions](https://github.com/cs100/assignment-team-blue/issues/3) to build be able to have a baseline for the subclasses 
 
-1. Make the Token subclasses that include (||), (&&), (;), and (#) so you know how to execute the different executables, such as ls and mkdir
+1. [Make the Token subclasses](https://github.com/cs100/assignment-team-blue/issues/4) that include (||), (&&), (;), and (#) so you know how to execute the different executables, such as ls and mkdir
