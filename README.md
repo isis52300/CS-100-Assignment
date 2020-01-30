@@ -11,7 +11,7 @@ Isis Dumas, 862092044
 
 # Introduction
 
-The program will print a command prompt, read in a line of commands, and execute the commands using fork, execvp, and waitpid. These steps will execute until an exit command is executed. This program uses a composite pattern. The purpose of this pattern is structural, meaning that it is composed of classes or objects, and the scope of this pattern is class, which means that this pattern applies primarily to classes. An abstract parent Token class is created containing children, OrToken, AndToken, SemicolonToken, and CommentToken. Inputs are taken into the Tokenizer class and stored within a vector. Then, the program searches for tokens within the char vector and creates and returns another vector containing only the tokens. The Token vector then becomes an argument of the Executor class. This class executes the commands using the Token class, which checks to see if the commands and tokens are valid, else it outputs an error.
+The program will print a command prompt, read in a line of commands, and execute the commands using *fork*, *execvp*, and *waitpid*. These steps will execute until an exit command is executed. This program uses a composite pattern. The purpose of this pattern is structural, meaning that it is composed of classes or objects, and the scope of this pattern is class, which means that this pattern applies primarily to classes. An abstract parent Token class is created containing children, OrToken, AndToken, SemicolonToken, and CommentToken. Inputs are taken into the Tokenizer class and stored within a vector. Then, the program searches for tokens within the char vector and creates and returns another vector containing only the tokens. The Token vector then becomes an argument of the Executor class. This class executes the commands using the Token class, which checks to see if the commands and tokens are valid, else it outputs an error.
 
 # Diagram
 See [images/](https://github.com/cs100/assignment-team-blue/tree/master/images) folder.
@@ -109,6 +109,10 @@ This class takes the input from the user and stores it in a char vector. Then, i
 # Prototypes/Research
 
 See [prototype/](https://github.com/cs100/assignment-team-blue/tree/master/prototype) directory.
+
+I found that when you fork an action, it can be tricky to get the right commands to run or output to the user in the way you want. While the _waitpid()_ function is useful to help fix this problem, we still need some practice with it to ensure we get the desired result. I also found that the _execvp()_ function requires a file to execute with and that detail was not in my mind when trying to design the code for the shell, so there may be changes to our original design to help with this. 
+
+After testing out how a normal shell reacts to different connectors, I found that when running one connector that works and one that doesn’t, an error message is printed on one line and the executer runs correctly on the next line. This will be useful to know when setting up our shell so that we can ensure that the results come out correctly. I also noticed that when running “ls -a”, the files, directories, and hidden directories are all printed out in alphabetical order, regardless of whether they are hidden or not (or if they have “.” in front of them or not). Also, the directories are output to the user from top to bottom instead of from left to right when using “ls -a” while “ls” outputs from left to right. If we are to output the hidden directories in the same matter, then our code will have to be more detailed than expected and include a lot more features. Also, I have not tested what would happen if there are multiple spaces after an executable or between some other words, like if the user types in “echo yes I love    spaces.” If we have to take this into account, then there will be some adjustments to out code to accommodate for such a feature.
 
 # Development and Testing Roadmap
 
