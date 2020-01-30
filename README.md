@@ -108,7 +108,7 @@ This class takes the input from the user and stores it in a char vector. Then, i
 
 # Prototypes/Research
 
-See prototype/ directory.
+See [prototype/](https://github.com/cs100/assignment-team-blue/tree/master/prototype) directory.
 
 # Development and Testing Roadmap
 
