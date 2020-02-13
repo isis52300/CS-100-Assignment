@@ -3,6 +3,9 @@
 
 class Executor {
 	public:
+    
+        Executor();
+    
 		void parse();
 		void execute();
 		void ls();
