@@ -10,6 +10,16 @@ class OrToken : public Token {
             left = l;
             right = r;
         }
+    void execute() {
+        if (left->isValid()) {
+            left->execute();
+        }
+        else if (right->isValid()) {
+            right->execute();
+        }
+    }
+    bool isValid() {return true;}
+    
 	protected:
         Token* left;
         Token* right;

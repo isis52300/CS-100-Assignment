@@ -10,7 +10,8 @@ public:
     void LsToken(string a) : Token() {
         argument = a;
     }
-    bool validArgument() {
+    void execute() {};
+    bool isValid() {
         if (argument == "-a") {
             return true;
         }

@@ -10,6 +10,17 @@ class AndToken : public Token {
             left = l;
             right = r;
         }
+    
+    void execute(){
+        if (left->isValid()) {
+            left->execute();
+            if (right->isValid()) {
+                right->execute();
+            }
+        }
+    }
+    bool isValid() {return true};
+
 
 	protected:
         Token* left;
