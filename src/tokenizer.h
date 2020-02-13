@@ -3,7 +3,9 @@
 
 class Tokenizer {
 	public:
-		void makeTree();
+		bool isConnector(char);
+		MyTree* newNode(char);
+		MyTree* makeTree(char);
 	protected:
 		
 };
