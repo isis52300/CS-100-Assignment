@@ -11,7 +11,7 @@ public:
         argument = a;
     }
     void execute() {
-        cout << argument;
+        cout << argument << endl;
     };
     bool isValid() {return true};
     

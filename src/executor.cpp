@@ -8,24 +8,19 @@ usign namespace std;
 
 Executor() {
     
-    Tokenizer makeTokens;
-    Token* treeOfTokens;
+    Tokenizer makeTokens; //Initializes Tokenizer class;
+    Token* treeOfTokens; //Tree pointer place holder
     
-    bool timeToExit = false;
-    //bool hasOrToken = false, hasAndToken = false, hasSemiToken = false;
-    book hasConnector = false;
-    vector<string> userInput;
-    string line, token = "";
-    int userInputSize;
+    bool timeToExit = false; //Used to loop the while loop
+    vector<string> userInput; //is used to pass through tokenizer
+    string line = "", token = ""; //used to help cin the user input and make it a vector
     
-    while (!timeToExit) {
-        
-        hasOrToken = false; hasAndToken = false; hasSemiToken = false;
+    while (!timeToExit) { //Might make this repeat forever until ExitToken is executed
         
         cout << "$ ";
         getline(cin, line); //Gets user input as a string
         
-        for (unsigned i = 0; i < line.size(); ++i) {
+        for (unsigned i = 0; i < line.size(); ++i) { //Turns the string into a vector of individual strings
             if (line.at(i) != ' ') {
                 token = token + line.at(i);
             }
@@ -35,9 +30,13 @@ Executor() {
             }
         }
         
-        treeOfTokens = tokenizer(userInput);
+        treeOfTokens = tokenizer(userInput); //Uses vector of strings to make a tree of tokens
         
-        treeOfTokens->execute();
+        treeOfTokens->execute(); //Now that the token tree is made, it will go through and execute everything
+        
+        userInput.clear(); //Clears the userInput vector so it is fresh when it's used again
+        
+        /* Note: Might need to implement a way to clear the treeOfTokens pointer to make sure there are no floating pointers and memory leaks*/
         
     }
 }

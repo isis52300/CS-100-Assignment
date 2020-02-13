@@ -12,6 +12,7 @@
 #include "lstoken"
 #include "echotoken"
 #include "mkdirtoken"
+#include "exittoken"
 
 class Tokenizer {
 	public:

@@ -1,4 +1,5 @@
 #include "tokenizer.h"
+#
 
 #include<iostream>
 
@@ -185,5 +186,8 @@ Token* tokenize(vector<string> userInput) {
             }
         }
         return new EchoToken(argument);
+    }
+    else if (userInput.at(0) == "exit") {
+        return new ExitToken();
     }
 }
