@@ -59,8 +59,29 @@ MyTree* makeTree(char table<Token*>)
 
 Token* tokenize(vector<string> userInput) {
    unsigned i;
-   string currentToken, editedCurrentToken;
+   string currentToken, editedCurrentToken, otherToken;
    vector<string> slicedUserInput1, slicedUserInput2;
+   
+    for (i = 0; i < userInput.size(); ++i) {
+        currentToken = userInput.at(i);
+        bool isStartQuotations = false, isEndQuotations = false;
+        if (currentToken == "#") {
+            for (unsigned j = 0; j < userInput.size(); ++j) {
+                otherToken = userInput.at(j);
+                if (j < i && otherToken.at(0) == "\"") {
+                    isStartQuotations = true;
+                }
+                if (j > i && otherToken.at(0) == "\"") {
+                    isEndQuotations = true;
+                }
+            }
+            
+            if (isStartQuotations == false && isEndQuotations == false) {
+                slicedUserInput1 = slice(userInput, 0, i - 1);
+                tokenize(slicedUserInput1);
+            }
+        }
+    }
    
    for (i = 0; i < userInput.size(); ++i) {
        currentToken = userInput.at(i);
