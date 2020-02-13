@@ -12,7 +12,7 @@ public:
     void LsToken(string a) : Token() {
         argument = a;
     }
-    void execute() {};
+    void execute();
     bool isValid() {
         if (argument == "-a" || argument == "") {
             return true;
