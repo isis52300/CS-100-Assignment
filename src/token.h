@@ -4,6 +4,7 @@
 class Token {
 	public:
 		virtual void check() = 0;
+        virtual void makeNode() = 0;
 
 	protected:
 
