@@ -62,7 +62,7 @@ Token* tokenize(vector<string> userInput) {
    string currentToken, editedCurrentToken, otherToken;
    vector<string> slicedUserInput1, slicedUserInput2;
    
-    for (i = 0; i < userInput.size(); ++i) {
+    for (i = 0; i < userInput.size(); ++i) {// Checks for # tokens
         currentToken = userInput.at(i);
         bool isStartQuotations = false, isEndQuotations = false;
         if (currentToken == "#") {
@@ -120,7 +120,7 @@ Token* tokenize(vector<string> userInput) {
        }
    }
    
-   for (i = 0; i < userInput.size(); ++i) {
+   for (i = 0; i < userInput.size(); ++i) {//Checks for && tokens
        currentToken = userInput.at(i);
        if (currentToken == "&&") {
            
@@ -132,4 +132,58 @@ Token* tokenize(vector<string> userInput) {
            return new AndToken( tokenize(slicedUserInput1), tokenize(slicedUserInput2) );
        }
    }
+    
+    for (i = 0; i < userInput.size(); ++i) {//Checks for || tokens
+        currentToken = userInput.at(i);
+        if (currentToken == "||") {
+            
+            //Slices the vector to the first and second parts
+            slicedUserInput1 = slice(userInput, 0, i - 1);
+            slicedUserInput2 = slice(userInput, i + 1, userInput.size() - 1);
+            
+            //Returns AndToken pointer, and makes a tree with the tokenize fucntion making the leaves
+            return new OrToken( tokenize(slicedUserInput1), tokenize(slicedUserInput2) );
+        }
+    }
+    
+    //At this point, there should be no more connectors to worry about (If there are, edit the above part to get rid of them)
+    
+    //Also, I am assuming there are at least one or two strings in the userInput vector
+    //(Ex: ls (one string) Ex: ls -a (two strings)
+    
+    if (userInput.at(0) == "ls") {
+        if (userInput.size() == 1) {
+            return new LsToken();
+        }
+        else {
+            string argument = "";
+            for (unsigned i = 1; i < userInput.size(); ++i) {
+                argument = argument + userInput.at(i);
+                if (i + 1 != userInput.size()) {
+                    argument = argument + " ";
+                }
+            }
+            return new LsToken(argument);
+        }
+    }
+    else if (userInput.at(0) == "mkdir") {
+        string argument = "";
+        for (unsigned i = 1; i < userInput.size(); ++i) {
+            argument = argument + userInput.at(i);
+            if (i + 1 != userInput.size()) {
+                argument = argument + " ";
+            }
+        }
+        return new MkdirToken(argument);
+    }
+    else if (userInput.at(0) == "echo") {
+        string argument = "";
+        for (unsigned i = 1; i < userInput.size(); ++i) {
+            argument = argument + userInput.at(i);
+            if (i + 1 != userInput.size()) {
+                argument = argument + " ";
+            }
+        }
+        return new EchoToken(argument);
+    }
 }

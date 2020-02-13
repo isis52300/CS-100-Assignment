@@ -6,13 +6,15 @@
 class LsToken : public Token {
 public:
     void check();
-    void LsToken() : Token() {}
+    void LsToken() : Token() {
+        argument = "";
+    }
     void LsToken(string a) : Token() {
         argument = a;
     }
     void execute() {};
     bool isValid() {
-        if (argument == "-a") {
+        if (argument == "-a" || argument == "") {
             return true;
         }
         return false;
