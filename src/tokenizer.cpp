@@ -23,7 +23,7 @@ Tokenizer::Tokenizer()
 	cout << "default" << endl;
 }
 
-vector<string> Tokenizer::sliceVector(const vector<string> &originalVector, int startIndex, int endIndex) {
+vector<string> Tokenizer::sliceVector(const vector<string> &originalVector,  int startIndex, int endIndex) {
 
     vector<string> v = originalVector;
 

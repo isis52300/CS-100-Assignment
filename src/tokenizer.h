@@ -25,7 +25,7 @@ class Tokenizer {
     
     vector<string> sliceVector(vector<string> originalVector, int startIndex, int endIndex);
 	protected:
-		
+    vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex); 
 };  
 
 #endif //__TOKENIZER_H__
