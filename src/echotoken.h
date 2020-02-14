@@ -17,7 +17,7 @@ public:
                         }
                         argument = temp;
         }
-        if (argument.at(argument.size() - 1)) {
+        if (argument.at(argument.size() - 1) == '\"') {
             argument.erase(argument.size() - 1, 1);
         }
         cout << argument << endl;
