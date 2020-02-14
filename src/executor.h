@@ -6,13 +6,7 @@ class Executor {
     
         Executor();
     
-		void parse();
 		void execute();
-		void ls();
-		void mkdir();
-		void echo();
-		void exit();
-		void error();
 	
 	protected:
 		
