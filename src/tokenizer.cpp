@@ -2,6 +2,25 @@
 
 #include<iostream>
 
+vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex) {
+    
+    vector<string> v = originalVector;
+    
+    if (startIndex == 0) {
+        for (unsigned i = 0; i < (v.size() - endIndex - 1); ++i) {
+            v.pop_back();
+        }
+    }
+    else {
+        for (unsigned i = 0; i < startIndex; ++i) {
+            v.erase(v.begin());
+        }
+    }
+    
+    return v;
+    
+}
+
 Token* tokenize(vector<string> userInput) {
    unsigned i;
    string currentToken, editedCurrentToken, otherToken;
@@ -13,16 +32,16 @@ Token* tokenize(vector<string> userInput) {
         if (currentToken == "#") {
             for (unsigned j = 0; j < userInput.size(); ++j) {
                 otherToken = userInput.at(j);
-                if (j < i && otherToken.at(0) == "\"") {
+                if (j < i && otherToken.at(0) == '\"') {
                     isStartQuotations = true;
                 }
-                if (j > i && otherToken.at(0) == "\"") {
+                if (j > i && otherToken.at(0) == '\"') {
                     isEndQuotations = true;
                 }
             }
             
             if (isStartQuotations == false && isEndQuotations == false) {
-                slicedUserInput1 = slice(userInput, 0, i - 1);
+                slicedUserInput1 = sliceVector(userInput, 0, i - 1);
                 tokenize(slicedUserInput1);
             }
         }
@@ -30,16 +49,16 @@ Token* tokenize(vector<string> userInput) {
    
    for (i = 0; i < userInput.size(); ++i) {
        currentToken = userInput.at(i);
-       if (currentToken.at(currentToken.size() - 1) == ";") {//Checks for ; tokens
+       if (currentToken.at(currentToken.size() - 1) == ';') {//Checks for ; tokens
            
            //Slices the user input to have the line before the ;
-           slicedUserInput1 = slice(userInput, 0, i - 1);
+           slicedUserInput1 = sliceVector(userInput, 0, i - 1);
            editedCurrentToken = currentToken;
            editedCurrentToken.pop_back();
            
            //Slices the user input to have the line after the ;
            slicedUserInput1.push_back(editedCurrentToken);
-           slicedUserInput2 = slice(userInput, i + 1, userInput.size() - 1);
+           slicedUserInput2 = sliceVector(userInput, i + 1, userInput.size() - 1);
            
            //Forks so that the lines before and after the ; can be tokenized
            pid_t pid = fork();
@@ -70,8 +89,8 @@ Token* tokenize(vector<string> userInput) {
        if (currentToken == "&&") {
            
            //Slices the vector to the first and second parts
-           slicedUserInput1 = slice(userInput, 0, i - 1);
-           slicedUserInput2 = slice(userInput, i + 1, userInput.size() - 1);
+           slicedUserInput1 = sliceVector(userInput, 0, i - 1);
+           slicedUserInput2 = sliceVector(userInput, i + 1, userInput.size() - 1);
            
            //Returns AndToken pointer, and makes a tree with the tokenize fucntion making the leaves
            return new AndToken( tokenize(slicedUserInput1), tokenize(slicedUserInput2) );
@@ -83,8 +102,8 @@ Token* tokenize(vector<string> userInput) {
         if (currentToken == "||") {
             
             //Slices the vector to the first and second parts
-            slicedUserInput1 = slice(userInput, 0, i - 1);
-            slicedUserInput2 = slice(userInput, i + 1, userInput.size() - 1);
+            slicedUserInput1 = sliceVector(userInput, 0, i - 1);
+            slicedUserInput2 = sliceVector(userInput, i + 1, userInput.size() - 1);
             
             //Returns AndToken pointer, and makes a tree with the tokenize fucntion making the leaves
             return new OrToken( tokenize(slicedUserInput1), tokenize(slicedUserInput2) );
