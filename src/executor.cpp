@@ -7,10 +7,7 @@
 
 using namespace std;
 
-Executor::Executor()
-{
-	//cout << "default" << endl;
-}
+Executor::Executor() {}
 
 void Executor::execute() {
     Tokenizer makeTokens; //Initializes Tokenizer class;
@@ -22,15 +19,17 @@ void Executor::execute() {
     
     while (!timeToExit) { //Might make this repeat forever until ExitToken is executed
         
+        token = "";
+        
         cout << "$ ";
         getline(cin, line); //Gets user input as a string
         
         for (unsigned i = 0; i < line.size(); ++i) { //Turns the string into a vector of individual strings
             if (line.at(i) != ' ') {
-               token = token + line.at(i);
-               if (i + 1 == line.size()) {
-                 userInput.push_back(token);
-               }
+                token = token + line.at(i);
+                if (i + 1 == line.size()) {
+                    userInput.push_back(token);
+                }
             }
             else {
                 userInput.push_back(token);

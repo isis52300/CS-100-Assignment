@@ -10,6 +10,16 @@ public:
         argument = a;
     }
     void execute() {
+        if (argument.at(0) == '\"') {
+            //            string temp = argument;
+            //            for (unsigned i = 1; i < argument.size(); ++i) {
+            //                temp.push_back(argument.at(i));
+            //            }
+            //            argument = temp;
+        }
+        if (argument.at(argument.size() - 1)) {
+            argument.erase(argument.size() - 1, 1);
+        }
         cout << argument << endl;
     }
     bool isValid() {return true;}
