@@ -1,8 +1,9 @@
 #include "executor.h"
 
 int main() {
-    
-    //Executor execute;
-    
+  
+    Executor execute;
+    execute.execute();
+  
     return 0;
 }

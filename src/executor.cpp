@@ -6,8 +6,9 @@
 
 usign namespace std;
 
-Executor() {
-    
+Executor() {}
+
+void Executor::execute() {
     Tokenizer makeTokens; //Initializes Tokenizer class;
     Token* treeOfTokens; //Tree pointer place holder
     
@@ -40,4 +41,3 @@ Executor() {
         
     }
 }
-
