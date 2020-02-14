@@ -7,13 +7,13 @@ class EchoToken : public Token {
 public:
     void check();
     EchoToken() : Token() {}
-    void EchoToken(string a) : Token() {
+    EchoToken(string a) : Token() {
         argument = a;
     }
     void execute() {
         cout << argument << endl;
-    };
-    bool isValid() {return true};
+    }
+    bool isValid() {return true;}
     
 private:
     string argument;

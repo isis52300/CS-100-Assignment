@@ -1,6 +1,12 @@
 #ifndef __TOKEN_H__
 #define __TOKEN_H__
 
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
 class Token {
 	public:
 		virtual void check() = 0;

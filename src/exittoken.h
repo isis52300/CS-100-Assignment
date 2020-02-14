@@ -3,6 +3,8 @@
 
 #include "token.h"
 
+using namespace std;
+
 class ExitToken : public Token {
 public:
     void check();

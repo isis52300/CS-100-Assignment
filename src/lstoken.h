@@ -9,7 +9,7 @@ public:
     LsToken() : Token() {
         argument = "";
     }
-    void LsToken(string a) : Token() {
+    LsToken(string a) : Token() {
         argument = a;
     }
     void execute(); //Need a CurrentDirectory class before this can be implementeds

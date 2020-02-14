@@ -8,11 +8,13 @@
 
 #include "token.h"
 #include "andtoken.h"
-#include "ortoken"
-#include "lstoken"
-#include "echotoken"
-#include "mkdirtoken"
-#include "exittoken"
+#include "ortoken.h"
+#include "lstoken.h"
+#include "echotoken.h"
+#include "mkdirtoken.h"
+#include "exittoken.h"
+
+using namespace std;
 
 class Tokenizer {
 	public:
@@ -20,9 +22,6 @@ class Tokenizer {
     Tokenizer();
     Token* tokenize(vector<string> userInput);
     
-		bool isConnector(char);
-		MyTree* newNode(char);
-		MyTree* makeTree(char);
 	protected:
 		
 };

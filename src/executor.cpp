@@ -4,11 +4,9 @@
 
 #include "tokenizer.h"
 
-usign namespace std;
+using namespace std;
 
-Executor() {}
-
-void Executor::execute() {
+void execute() {
     Tokenizer makeTokens; //Initializes Tokenizer class;
     Token* treeOfTokens; //Tree pointer place holder
     
@@ -31,7 +29,7 @@ void Executor::execute() {
             }
         }
         
-        treeOfTokens = tokenizer(userInput); //Uses vector of strings to make a tree of tokens
+        treeOfTokens = makeTokens.tokenize(userInput); //Uses vector of strings to make a tree of tokens
         
         treeOfTokens->execute(); //Now that the token tree is made, it will go through and execute everything
         

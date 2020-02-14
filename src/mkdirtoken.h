@@ -6,8 +6,8 @@
 class MkdirToken : public Token {
 public:
     void check();
-    MkdirToken() : Token() {}
-    void MkdirToken(string a) : Token() {
+    MkdirToken() : Token() { argument = ""; }
+    MkdirToken(string a) : Token() {
         argument = a;
     }
     void execute(); //Need a CurrentDirectory class before this can be implementeds
@@ -19,7 +19,7 @@ public:
     };
     
 private:
-    string argument = "";
+    string argument;
     
 };
 
