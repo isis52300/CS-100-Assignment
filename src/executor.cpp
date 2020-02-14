@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "tokenizer.h"
+#include "tokenizer.cpp"
 
 using namespace std;
 
