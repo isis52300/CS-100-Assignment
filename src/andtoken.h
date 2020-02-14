@@ -5,7 +5,6 @@
 
 class AndToken : public Token {
 	public:
-		void check();
         AndToken(Token* l, Token* r) : Token() {
             left = l;
             right = r;

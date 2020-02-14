@@ -5,7 +5,6 @@
 
 class MkdirToken : public Token {
 public:
-    void check();
     MkdirToken() : Token() { argument = ""; }
     MkdirToken(string a) : Token() {
         argument = a;

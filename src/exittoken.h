@@ -7,7 +7,6 @@ using namespace std;
 
 class ExitToken : public Token {
 public:
-    void check();
     ExitToken() : Token() {}
     void execute() {
         cout << "Exiting the shell\n";

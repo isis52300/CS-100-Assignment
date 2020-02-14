@@ -153,4 +153,6 @@ Token* tokenize(vector<string> userInput) {
     else if (userInput.at(0) == "exit") {
         return new ExitToken();
     }
+    
+    return new EchoToken();
 }

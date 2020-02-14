@@ -4,6 +4,15 @@ ADD_SUBDIRECTORY(googletest)
 
 SET(CMAKE_CXX_STANDARD 11)
 
+ADD_EXECUTABLE(tokens
+	token.h
+	andtoken.h
+	ortoken.h
+	lstoken.h
+	mkdirtoken.h
+	echotoken.h
+)
+
 ADD_EXECUTABLE(test
 	unit_test.cpp
 )

@@ -5,7 +5,6 @@
 
 class OrToken : public Token {
 	public:
-		void check();
         OrToken(Token* l, Token* r) : Token() {
             left = l;
             right = r;
