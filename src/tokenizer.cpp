@@ -95,6 +95,7 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
             slicedUserInput1 = sliceVector(userInput, temp1, temp2);
             editedCurrentToken = currentToken;
             editedCurrentToken.pop_back();
+            slicedUserInput1.push_back(editedCurrentToken);
             //Slices the user input to have the line after the ;
             temp1 = i + 1; temp2 = userInput.size() - 1;
             slicedUserInput1.push_back(editedCurrentToken);
@@ -112,7 +113,7 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
             else if (pid > 0) { //This is the parent (tokens the second part after ;)
                 
                 waitpid(pid, &status, 0);
-                tokenize(slicedUserInput2);
+                return tokenize(slicedUserInput2);
                 
             }
             else { //The forking has failed
