@@ -4,7 +4,7 @@
 class Token {
 	public:
 		virtual void check() = 0;
-    virtual void Token() = 0;
+    Token();
     virtual void execute() = 0;
     virtual bool isValid() = 0;
 

@@ -6,7 +6,7 @@
 class AndToken : public Token {
 	public:
 		void check();
-        void AndToken(Token* l, Token* r) : Token() {
+        AndToken(Token* l, Token* r) : Token() {
             left = l;
             right = r;
         }
@@ -19,7 +19,7 @@ class AndToken : public Token {
             }
         }
     }
-    bool isValid() {return true};
+    bool isValid() {return true;}
 
 
 	protected:
