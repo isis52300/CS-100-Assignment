@@ -9,7 +9,7 @@ using namespace std;
 
 class Token {
 	public:
-    Token();
+    Token() {};
     virtual void execute() = 0;
     virtual bool isValid() = 0;
 
