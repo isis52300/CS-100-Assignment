@@ -23,7 +23,26 @@ Tokenizer::Tokenizer()
 	cout << "default" << endl;
 }
 
-vector<string> Tokenizer::sliceVector(vector<string> originalVector, int startIndex, int endIndex) {
+//vector<string> Tokenizer::sliceVector(vector<string> originalVector, int startIndex, int endIndex) {
+//    
+//    vector<string> v = originalVector;
+//    
+//    if (startIndex == 0) {
+//        for (unsigned i = 0; i < (v.size() - endIndex - 1); ++i) {
+//            v.pop_back();
+//        }
+//    }
+//    else {
+//        for (unsigned i = 0; i < startIndex; ++i) {
+//            v.erase(v.begin());
+//        }
+//    }
+//    
+//    return v;
+//    
+//}
+
+vector<string> Tokenizer::sliceVector(const vector<string> &originalVector, int startIndex, int endIndex) {
     
     vector<string> v = originalVector;
     

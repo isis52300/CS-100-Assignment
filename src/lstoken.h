@@ -11,7 +11,7 @@ public:
     LsToken(string a) : Token() {
         argument = a;
     }
-    void execute(); //Need a CurrentDirectory class before this can be implementeds
+    void execute() {} //Need a CurrentDirectory class before this can be implementeds
     bool isValid() {
         if (argument == "-a" || argument == "") {
             return true;

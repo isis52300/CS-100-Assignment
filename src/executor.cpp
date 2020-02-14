@@ -2,14 +2,14 @@
 #include <string>
 #include <vector>
 
+#include "executor.h"
 #include "tokenizer.h"
-#include "tokenizer.cpp"
 
 using namespace std;
 
 Executor::Executor()
 {
-	cout << "default" << endl;
+	//cout << "default" << endl;
 }
 
 void Executor::execute() {
