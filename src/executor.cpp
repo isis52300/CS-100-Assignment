@@ -6,7 +6,12 @@
 
 using namespace std;
 
-void execute() {
+Executor::Executor()
+{
+	cout << "default" << endl;
+}
+
+void Executor::execute() {
     Tokenizer makeTokens; //Initializes Tokenizer class;
     Token* treeOfTokens; //Tree pointer place holder
     

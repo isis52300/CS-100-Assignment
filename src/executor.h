@@ -6,10 +6,10 @@ class Executor {
     
         Executor();
     
-		void execute();
+	void execute();
 	
 	protected:
-		
+	Executor* exObj;
 };
 
 #endif //__EXECUTOR_H__

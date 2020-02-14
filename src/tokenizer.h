@@ -5,6 +5,7 @@
 #include <string>
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #include "token.h"
 #include "andtoken.h"
@@ -27,7 +28,12 @@ class Tokenizer {
 		
 };
 
-vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex) {
+Tokenizer::Tokenizer()
+{
+	cout << "default" << endl;
+}
+
+vector<string> Tokenizer::sliceVector(const vector<string> &originalVector, int startIndex, int endIndex) {
     
     vector<string> v = originalVector;
     
@@ -46,7 +52,7 @@ vector<string> sliceVector(const vector<string> &originalVector, int startIndex,
     
 }
 
-Token* tokenize(vector<string> userInput) {
+Token* Tokenizer::tokenize(vector<string> userInput) {
     unsigned i;
     string currentToken, editedCurrentToken, otherToken;
     vector<string> slicedUserInput1, slicedUserInput2;
