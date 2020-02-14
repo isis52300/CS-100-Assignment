@@ -11,7 +11,7 @@ Isis Dumas, 862092044
 
 # Introduction
 
-The program will print a command prompt, read in a line of commands, and execute the commands using *fork*, *execvp*, and *waitpid*. These steps will execute until an exit command is executed. This program uses a composite pattern. The purpose of this pattern is structural, meaning that it is composed of classes or objects, and the scope of this pattern is class, which means that this pattern applies primarily to classes. An abstract parent Token class is created containing children, OrToken, AndToken, SemicolonToken, and CommentToken. Inputs are taken into the Tokenizer class and stored within a vector. Then, the program searches for tokens within the char vector and creates and returns another vector containing only the tokens. The Token vector then becomes an argument of the Executor class. This class executes the commands using the Token class, which checks to see if the commands and tokens are valid, else it outputs an error.
+The program will print a command prompt, read in a line of commands, and execute the commands using *fork*, *execvp*, and *waitpid*. These steps will execute until an exit command is entered. This program uses a composite pattern. The purpose of this pattern is structural, meaning that it is composed of classes or objects, and the scope of this pattern is class, which means that this pattern applies primarily to classes. An abstract parent Token class is created containing children, OrToken, AndToken, LsToken, MkdirToken, EchoToken, and ExitToken. Inputs are taken into the Executor class and stored within a tree in the Tokenizer class. After the tree is created, the Executor class goes through the tree and executes everything. 
 
 # Diagram
 See [images/](https://github.com/cs100/assignment-team-blue/tree/master/images) folder.
@@ -20,39 +20,63 @@ See [images/](https://github.com/cs100/assignment-team-blue/tree/master/images) 
 
 **Token**
 
-This is the abstract parent class that contains the Token children/subclasses for different types of tokens. It uses a virtual void check() function to check if the surrounding commands (left and right) are valid and determines if the input can be executed or not.
+This is the abstract parent class that contains the Token children/subclasses for different types of tokens. It uses a virtual void execute() function to check if the surrounding commands (left and right) are valid and determines if the input can be executed or not.
 
 * **OrToken**
 
   Child class for the or (||) token.
 
-  check() looks at both left and right of ||. Three possibilities:
+  void execute() looks at both left and right of ||. Three possibilities:
 
   Left is valid, ignore right, do left
   
   Left is invalid, right valid, do right
 
   Left is invalid, right is invalid, error
+  
+  bool isValid() returns true if valid 
 
 * **AndToken**
 
   Child class for the and (&&) token. 
   
-  check() looks at both left and right of &&.
+  void execute() looks at both left and right of &&.
   
   Both left and right have to be valid, otherwise error
   
-* **SemicolonToken**
+  bool isValid() returns true if valid
+  
+* **LsToken**
+  
+  Child class for the ls command token.
+   
+  void execute() 
+  
+  bool isValid() returns true if valid
+  
+* **MkdirToken**
 
-  Child class for the semicolon (;) token.
+  Child class for the mkdir command token.
   
-  check() moves to the next command after ;
+  void execute()
   
-* **CommentToken**
+  bool isValid() returns true if valid
+  
+* **EchoToken**
 
-  Child class for the comment (#) token. 
+  Child class for the echo command token.
   
-  check() ignores everything to the right of the #
+  void execute() outputs the argument
+  
+  bool isValid() returns true if valid
+  
+* **ExitToken**
+
+  Child class for the exit command token.
+  
+  void execute() exits from the shell.
+  
+  bool isValid() returns true if valid
 
 **Executor**
 
@@ -64,7 +88,15 @@ This class is a single executor class to execute commands based on the tokens st
   
 * Functions
 
-  * execute()
+  * Executor()
+  
+    * Constructor calls functions from other classes
+
+  * void parse()
+  
+    * Parses through the commands and arguments entered in the shell
+  
+  * void execute()
 
     * Executes the commands after looking at the tokens in the table vector
     
@@ -102,9 +134,13 @@ This class takes the input from the user and stores it in a char vector. Then, i
   
 * Functions
 
-  * makeTokenVector()
+  * Tokenizer()
   
-    * Takes in input and stores in a char vector, then finds tokens and stores those in a Token vector and returns it
+    * Constructor
+  
+  * Token* tokenize(vector<string> userInput)
+  
+    * Takes in input and checks for the tokens #, ;, &&, and ||, including the command tokens.
 
 # Prototypes/Research
 
