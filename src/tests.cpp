@@ -4,7 +4,6 @@
 #include "gtest/gtest.h"
 #include "token.h"
 #include "tokenizer.h"
-#include "tokenizer.cpp"
 #include "echotoken.h"
 #include "lstoken.h"
 #include "mkdirtoken.h"
