@@ -6,7 +6,7 @@
 class EchoToken : public Token {
 public:
     void check();
-    void EchoToken() : Token() {}
+    EchoToken() : Token() {}
     void EchoToken(string a) : Token() {
         argument = a;
     }

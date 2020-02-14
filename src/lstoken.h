@@ -6,7 +6,7 @@
 class LsToken : public Token {
 public:
     void check();
-    void LsToken() : Token() {
+    LsToken() : Token() {
         argument = "";
     }
     void LsToken(string a) : Token() {

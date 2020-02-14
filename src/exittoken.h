@@ -6,7 +6,7 @@
 class ExitToken : public Token {
 public:
     void check();
-    void ExitToken() : Token() {}
+    ExitToken() : Token() {}
     void execute() {
         cout << "Exiting the shell\n";
         exit(0);
