@@ -27,7 +27,10 @@ void Executor::execute() {
         
         for (unsigned i = 0; i < line.size(); ++i) { //Turns the string into a vector of individual strings
             if (line.at(i) != ' ') {
-                token = token + line.at(i);
+               token = token + line.at(i);
+               if (i + 1 == line.size()) {
+                 userInput.push_back(token);
+               }
             }
             else {
                 userInput.push_back(token);
