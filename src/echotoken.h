@@ -1,6 +1,9 @@
 #ifndef __ECHOTOKEN_H__
 #define __ECHOTOKEN_H__
 
+#include <cstring>
+#include <string.h>
+
 #include "token.h"
 
 class EchoToken : public Token {
@@ -21,22 +24,28 @@ public:
             argument.erase(argument.size() - 1, 1);
         }
         
-        //char* echo = "echo";
+        char* echo; 
+        strcpy(echo, "echo");
         char* argv[100];
-        argv[0] = "echo";
+        argv[0] = echo;
         int argvIndex = 1;
         
-        for (unsigned i = 1; i < argument.size(); ++i) {
-            string temp = "";
+        for (unsigned i = 0; i < argument.size(); ++i) {
+            string temp;
             if (argument.at(i) != ' ') {
                 temp = temp + argument.at(i);
                 if (i + 1 == argument.size()) {
-                    argv[argvIndex] = temp;
+                    char* tempPointer; // = new char[100];
+                    strcpy(tempPointer, temp.c_str());
+                    argv[argvIndex] = tempPointer;
                     ++argvIndex;
+                    temp = "";
                 }
             }
             else {
-                argv[argvIndex] = temp;
+                char* tempPointer; // = new char[100];
+                strcpy(tempPointer, temp.c_str());
+                argv[argvIndex] = tempPointer;
                 ++argvIndex;
                 temp = "";
             }
