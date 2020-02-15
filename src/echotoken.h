@@ -8,55 +8,36 @@
 
 class EchoToken : public Token {
 public:
-    EchoToken() : Token() { argument = ""; }
-    EchoToken(string a) : Token() {
+    EchoToken() : Token() { }
+    EchoToken(vector<string> a) : Token() {
         argument = a;
     }
     void execute() {
-        if (argument.at(0) == '\"') {
-                        string temp = "";
-                        for (unsigned i = 1; i < argument.size(); ++i) {
-                            temp.push_back(argument.at(i));
-                        }
-                        argument = temp;
-        }
-        if (argument.at(argument.size() - 1) == '\"') {
-            argument.erase(argument.size() - 1, 1);
-        }
-        
-        char* echo; 
-        strcpy(echo, "echo");
-        char* argv[100];
-        argv[0] = echo;
-        int argvIndex = 1;
-        
-        for (unsigned i = 0; i < argument.size(); ++i) {
-            string temp;
-            if (argument.at(i) != ' ') {
-                temp = temp + argument.at(i);
-                if (i + 1 == argument.size()) {
-                    char* tempPointer; // = new char[100];
-                    strcpy(tempPointer, temp.c_str());
-                    argv[argvIndex] = tempPointer;
-                    ++argvIndex;
-                    temp = "";
+ 
+	vector<char *> argv(argument.size() + 2);
+        string echo = "echo";
+        argv[0] = &echo[0];
+	for (unsigned i = 1; i < argument.size(); ++i){
+                
+		if (argument.at(i).at(0) == '\"' && argument.at(i).at(argument.at(i).size() -1) == '\"') {
+		     argument.at(i) = argument.at(i).substr(1, argument.at(i).size() -2 );
+		}
+		if (argument.at(i).at(0) == '\"') {
+                     argument.at(i) = argument.at(i).substr(1, argument.size() );
                 }
-            }
-            else {
-                char* tempPointer; // = new char[100];
-                strcpy(tempPointer, temp.c_str());
-                argv[argvIndex] = tempPointer;
-                ++argvIndex;
-                temp = "";
-            }
-        }
-        
+                if (argument.at(i).at(argument.at(i).size() -1) == '\"') {
+                     argument.at(i) = argument.at(i).substr(0, argument.at(i).size() -1 );
+                }
+    		argv[i] = &argument[i][0];
+	}
+
+   
         pid_t pid = fork();
         int status;
         
         if (pid == 0) { //This is the child
             
-            execvp(argv[0], argv);
+            execvp(argv[0], argv.data());
             cout << endl;
             
         }
@@ -76,7 +57,7 @@ public:
     bool isValid() {return true;}
     
 private:
-    string argument;
+    vector<string> argument;
     
 };
 
