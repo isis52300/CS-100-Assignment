@@ -15,7 +15,7 @@ public:
     void execute() {
     	vector<char *> argv(argument.size() + 2);
         string ls = "ls";
-        argv[0] = &ls[0];
+        argv[0] = &ls[0]; //ls
         for (unsigned i = 1; i < argument.size(); ++i){
                 argv[i] = &argument[i][0];
         }

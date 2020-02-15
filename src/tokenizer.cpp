@@ -88,7 +88,7 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
             	temp1 = 0; temp2 = i - 1;
             	slicedUserInput1 = sliceVector(userInput, temp1, temp2);
             	editedCurrentToken = currentToken;
-            	editedCurrentToken.pop_back();
+            	editedCurrentToken.pop_back(); //remove
         //    slicedUserInput1.push_back(editedCurrentToken);
             	//Slices the user input to have the line after the ;
             	temp1 = i + 1; temp2 = userInput.size() - 1;

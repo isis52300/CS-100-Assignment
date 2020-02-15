@@ -12,7 +12,7 @@ public:
     EchoToken(vector<string> a) : Token() {
         argument = a;
     }
-    void execute() {
+    void execute() { //Echo
  
 	vector<char *> argv(argument.size() + 2);
         string echo = "echo";
