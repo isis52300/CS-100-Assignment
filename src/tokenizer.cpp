@@ -16,6 +16,7 @@
 #include "echotoken.h"
 #include "mkdirtoken.h"
 #include "exittoken.h"
+#include "testtoken.h"
 
 using namespace std;
 
@@ -179,6 +180,9 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
     }
     else if (userInput.at(0) == "exit") {
         return new ExitToken();
+    }
+    else if (userInput.at(0) == "test") {
+        return new TestToken();
     }
     
     return new ExitToken();
