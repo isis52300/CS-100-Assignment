@@ -20,7 +20,7 @@ public:
     }
     void execute() {
         
-        int startIndex = 0;
+        int startIndex = 1;
         bool flagE = false, flagF = false, flagD = false;
         
         if (argument.at(startIndex) == "-f") {
@@ -45,8 +45,7 @@ public:
         argv[0] = &argument[startIndex][0];
         
         if (stat(argv[0], &sb) == -1) { //Calling the stat() function and testing it
-            cout << "Error running test token comand\n";
-            exit(1);
+            cout << "(FALSE)\n";
         }
         //Now sb should have all the information about the files that you need
         
@@ -54,17 +53,17 @@ public:
             valid = true;
             cout << "(TRUE)\n";
         }
-        if (flagF && S_ISREG (sb.st_mode) != 0) {
+        else if (flagF && S_ISREG (sb.st_mode) != 0) {
             valid = true;
             cout << "(TRUE)\n";
         }
-        if (flagE && (S_ISDIR (sb.st_mode) != 0 || S_ISREG (sb.st_mode) != 0)) {
+        else if (flagE && (S_ISDIR (sb.st_mode) != 0 || S_ISREG (sb.st_mode) != 0)) {
             valid = true;
             cout << "(TRUE)\n";
         }
-        else {
+        /*else {
             cout << "(FALSE)\n";
-        }
+        }*/
         
     }
     bool isValid() {return true;} //Might have to change true to the bool valid later

@@ -182,7 +182,7 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
         return new ExitToken();
     }
     else if (userInput.at(0) == "test") {
-        return new TestToken();
+        return new TestToken(userInput);
     }
     
     return new ExitToken();
