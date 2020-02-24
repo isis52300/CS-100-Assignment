@@ -16,11 +16,40 @@ public:
     TestToken() : Token() { }
     TestToken(vector<string> a) : Token() {
         argument = a;
-        valid = false;
+        //valid = false;
+        
+        stat(argv[0], &sb);
+        
+        if (argument.at(0) == "test") {
+            startIndex = 1;
+        }
+        else {
+            startIndex = 0;
+        }
+        
+        if (argument.at(startIndex) == "-f") {
+            valid = true;
+            flagF = true;
+            ++startIndex;
+        }
+        else if (argument.at(startIndex) == "-d") {
+            valid = true;
+            flagD = true;
+            ++startIndex;
+        }
+        else if (argument.at(startIndex) == "-e"){
+            valid = true;
+            flagE = true;
+            ++startIndex;
+        }
+        else {
+            valid = true;
+            flagE = true;
+        }
     }
     void execute() {
         
-        int startIndex = 1;
+        /*int startIndex = 1;
         bool flagE = false, flagF = false, flagD = false;
         
         if (argument.at(startIndex) == "-f") {
@@ -40,7 +69,7 @@ public:
         }
         
         //NOTE: This might have to be moved to the constructor
-        struct stat sb;
+        struct stat sb;*/
         vector<char *> argv(argument.size() + 2);
         argv[0] = &argument[startIndex][0];
         
@@ -66,11 +95,13 @@ public:
         }*/
         
     }
-    bool isValid() {return true;} //Might have to change true to the bool valid later
+    bool isValid() {return valid;}
     
 private:
     vector<string> argument;
-    bool valid;
+    bool valid, flagE, flagF, flagD;
+    struct stat sb;
+    int startIndex;
 };
 
 #endif //__TESTTOKEN_H__

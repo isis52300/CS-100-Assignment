@@ -184,6 +184,10 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
     else if (userInput.at(0) == "test") {
         return new TestToken(userInput);
     }
+    else if (userInput.at(0) == "[") {
+        slicedUserInput1 = sliceVector(userInput, 1, userInput.size() - 2);
+        return new TestToken(sliceVector);
+    }
     
     return new ExitToken();
 }
