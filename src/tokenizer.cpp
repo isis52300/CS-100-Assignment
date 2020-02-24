@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stack>
+#include <queue>
 
 #include "tokenizer.h"
 #include "token.h"
@@ -38,6 +40,58 @@ vector<string> Tokenizer::sliceVector(const vector<string> &originalVector, int 
     }
     
     return v;
+    
+}
+
+vector<string> Tokenizer::flipVector(const vector<string> &originalVector) {
+    
+    vector<string> v = originalVector;
+    vector<string> newVector;
+    
+    for (unsigned i = v.size() - 1; i >= 0; --i) {
+        
+        if (v.size() == 0) {
+            return newVector;
+        }
+        
+        string currToken = v.at(i);
+        
+        if (currToken == "(") {
+            newVector.push_back(")");
+            v = sliceVector(v, 0, i-1);
+        }
+        else if (currToken == ")") {
+            newVector.push_back("(");
+            v = sliceVector(v, 0, i-1);
+        }
+        else if (currToken == "echo" ||
+                 currToken == "mkdir" ||
+                 currToken == "ls" ||
+                 currToken == "exit" ||
+                 currToken == "test" ||
+                 currToken == "[") {
+            
+            for (unsigned j = i; j < v.size(); ++j) {
+                newVector.push_back(v.at(j));
+            }
+            v = sliceVector(v, 0, i-1);
+            
+        }
+        else if (currToken == "&&" || currToken == "||") {
+            newVector.push_back(currToken);
+            v = sliceVector(v, 0, i-1);
+        }
+    }
+    
+    return newVector;
+    
+}
+
+vector<string> makePostFix(vector<string> &originalVector) {
+    
+    
+    
+    
     
 }
 
@@ -184,7 +238,7 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
     else if (userInput.at(0) == "test") {
         return new TestToken(userInput);
     }
-    else if (userInput.at(0) == "[") {
+    else if (userInput.at(0) == "[") { //I'm assuming that there will always be a ] at the end
         slicedUserInput1 = sliceVector(userInput, 1, userInput.size() - 2);
         return new TestToken(slicedUserInput1);
     }

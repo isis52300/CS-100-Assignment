@@ -14,6 +14,7 @@
 #include "echotoken.h"
 #include "mkdirtoken.h"
 #include "exittoken.h"
+#include "testtoken.h"
 
 using namespace std;
 
@@ -23,9 +24,11 @@ class Tokenizer {
     Tokenizer();
     Token* tokenize(vector<string> userInput);
     
-//    vector<string> sliceVector(vector<string> originalVector, int startIndex, int endIndex);
 	protected:
-    vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex); 
+    vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex);
+    
+    vector<string> flipVector(const vector<string> &originalVector);
+    vector<string> makePostFix(vector<string> &originalVector);
 };  
 
 #endif //__TOKENIZER_H__
