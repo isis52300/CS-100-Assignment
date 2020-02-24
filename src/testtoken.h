@@ -18,6 +18,9 @@ public:
         argument = a;
         //valid = false;
         
+	vector<char *> argv(argument.size() + 2);
+        argv[0] = &argument[startIndex][0];
+
         stat(argv[0], &sb);
         
         if (argument.at(0) == "test") {
