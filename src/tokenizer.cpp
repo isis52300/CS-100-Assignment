@@ -43,6 +43,76 @@ vector<string> Tokenizer::sliceVector(const vector<string> &originalVector, int 
     
 }
 
+void Tokenizer::insert (vector<string> &originalVector, string word, unsigned index) {
+    
+    if (originalVector.size() == 0) {
+        originalVector.push_back(word);
+        return;
+    }
+    
+    if (index == originalVector.size() - 1) {
+        originalVector.push_back(word);
+        return;
+    }
+    
+    originalVector.push_back(word);
+    string currWord = word;
+    string nextWord = originalVector.at(index);
+    
+    for (unsigned i = index; i + 1 < originalVector.size(); ++i) {
+        originalVector.at(i) = currWord;
+        currWord = nextWord;
+        nextWord = originalVector.at(i+1);
+    }
+    originalVector.at(originalVector.size() - 1) = currWord;
+    
+}
+
+vector<string> Tokenizer::seperator(const vector<string> &originalVector) {
+    
+    vector<string> v = originalVector;
+    string currWord, tempWord = "";
+    
+    for (unsigned i = 0; i < v.size(); ++i) {
+        currWord = v.at(i);
+        if (currWord.size() != 1 && currWord.at(0) == '\"') {
+            for (unsigned j = 1; j < currWord.size(); ++j) {
+                tempWord += currWord.at(j);
+            }
+            v.at(i) = tempWord;
+            insert(v, "\"", i);
+            currWord = v.at(i+1);
+        }
+        if (currWord.size() != 1 && currWord.at(currWord.size() - 1) == ';') {
+            currWord.pop_back();
+            if(i != v.size() - 1) {
+                v.at(i+1) = currWord;
+                insert(v, ";", i+2);
+                currWord = v.at(i+1);
+            }
+            else {
+                v.at(i) = currWord;
+                v.push_back(";");
+            }
+        }
+        if (currWord.size() != 1 && currWord.at(currWord.size() - 1) == '\"') {
+            currWord.pop_back();
+            if(i != v.size() - 1) {
+                v.at(i+1) = currWord;
+                insert(v, "\"", i+2);
+                currWord = v.at(i+1);
+            }
+            else {
+                v.at(i) = currWord;
+                v.push_back("\"");
+            }
+        }
+        
+    }
+    
+    return v;
+}
+
 vector<string> Tokenizer::flipVector(const vector<string> &originalVector) {
     
     vector<string> v = originalVector;

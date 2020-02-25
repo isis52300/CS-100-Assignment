@@ -26,6 +26,8 @@ class Tokenizer {
     
 	protected:
     vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex);
+    void insert (vector<string> &originalVector, string word, unsigned index);
+    vector<string> seperator(const vector<string> &originalVector);
     
     vector<string> flipVector(const vector<string> &originalVector);
     vector<string> makePostFix(vector<string> &originalVector);
