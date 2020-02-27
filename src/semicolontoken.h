@@ -2,11 +2,12 @@
 #define __SEMICOLONTOKEN_H__
 
 #include "token.h"
+#include "connectortoken.h"
 
-class SemicolonToken : public Token {
+class SemicolonToken : public ConnectorToken {
 public:
-    SemicolonToken() : Token() {}
-    SemicolonToken(Token* l, Token* r) : Token() {
+    SemicolonToken() : ConnectorToken() {}
+    SemicolonToken(Token* l, Token* r) : ConnectorToken() {
         left = l;
         right = r;
     }

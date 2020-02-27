@@ -2,11 +2,12 @@
 #define __ORTOKEN_H__
 
 #include "token.h"
+#include "connectortoken.h"
 
-class OrToken : public Token {
+class OrToken : public ConnectorToken {
 	public:
-        OrToken() : Token() {}
-        OrToken(Token* l, Token* r) : Token() {
+        OrToken() : ConnectorToken() {}
+        OrToken(Token* l, Token* r) : ConnectorToken() {
             left = l;
             right = r;
         }

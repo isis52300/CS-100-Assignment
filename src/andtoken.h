@@ -2,11 +2,12 @@
 #define __ANDTOKEN_H__
 
 #include "token.h"
+#include "connectortoken.h"
 
-class AndToken : public Token {
+class AndToken : public ConnectorToken {
 	public:
-        AndToken() : Token() {}
-        AndToken(Token* l, Token* r) : Token() {
+        AndToken() : ConnectorToken() {}
+        AndToken(Token* l, Token* r) : ConnectorToken() {
             left = l;
             right = r;
         }
