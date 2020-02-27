@@ -17,6 +17,14 @@ class OrToken : public Token {
             right->execute();
         }
     }
+    
+    void addLeft(Token* l) {
+        left = l;
+    }
+    void addRight(Token* r) {
+        right = r;
+    }
+    
     bool isValid() {return true;}
     
 	protected:
