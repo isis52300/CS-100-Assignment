@@ -5,6 +5,7 @@
 
 class AndToken : public Token {
 	public:
+        AndToken() : Token() {}
         AndToken(Token* l, Token* r) : Token() {
             left = l;
             right = r;

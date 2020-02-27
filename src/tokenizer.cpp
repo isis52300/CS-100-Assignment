@@ -160,6 +160,7 @@ vector<string> makePostFix(vector<string> &originalVector) {
     vector<string> s;
     vector<string> q;
     string currToken;
+    bool quotationMarks = false;
     
     for (unsigned i = 0; i < originalVector.size(); ++i) {
         
@@ -171,15 +172,23 @@ vector<string> makePostFix(vector<string> &originalVector) {
             currToken == "test" ||
             currToken == "[") {
             int incrementer = i;
-            while ((currToken != "&&" && currToken != "||" &&
-                    currToken != ";" && currToken != "(" && currToken != ")")
-                   && (incrementer < originalVector.size())) {
-                q.push_back(currToken);
-                ++incrementer;
-                if (incrementer < originalVector.size()) {
-                    currToken = originalVector.at(incrementer);
-                }
-            }
+            while (((currToken != "&&" && currToken != "||" &&
+                     currToken != ";" && currToken != "(" && currToken != ")")
+                    && (incrementer < originalVector.size()))
+                   || ((currToken == "&&" || currToken == "||" || currToken == ";")
+                       && quotationMarks == true)) {
+                       if (currToken == "\"" && quotationMarks == false) {
+                           quotationMarks = true;
+                       }
+                       else if (currToken == "\""){
+                           quotationMarks = false;
+                       }
+                       q.push_back(currToken);
+                       ++incrementer;
+                       if (incrementer < originalVector.size()) {
+                           currToken = originalVector.at(incrementer);
+                       }
+                   }
             i = incrementer - 1;
         }
         else if (currToken == "&&" || currToken == "||" || currToken == ";") {
@@ -212,6 +221,127 @@ vector<string> makePostFix(vector<string> &originalVector) {
     
     return q;
     
+}
+
+Token* Tokenizer::tok(vector<string> &v) {
+    int temp1, temp2;
+    vector<string> slicedUserInput;
+    
+    for (unsigned i = 0; i < v.size(); ++i) {
+        currToken = v.at(i);
+        if (currToken == "&&") {
+            Token* T = new AndToken();
+            temp1 = i+1; temp2 = v.size() - 1;
+            slicedUserInput = sliceVector(userInput, temp1, temp2);
+            T->addLeft(tok(v));
+            T->addRight(tok(v));
+            return T;
+        }
+        else if (currToken == "||") {
+            Token* T = new OrToken();
+            temp1 = i+1; temp2 = v.size() - 1;
+            slicedUserInput = sliceVector(userInput, temp1, temp2);
+            T->addLeft(tok(v));
+            T->addRight(tok(v));
+            return T;
+        }
+        else if (currToken == ";") {
+            Token* T = new SemicolonToken();
+            temp1 = i+1; temp2 = v.size() - 1;
+            slicedUserInput = sliceVector(userInput, temp1, temp2);
+            T->addLeft(tok(v));
+            T->addRight(tok(v));
+            return T;
+        }
+        else if (currToken == "echo") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new EchoToken(slicedUserInput);
+        }
+        else if (currToken == "ls") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            if (slicedUserInput.size() == 0) {
+                return new LsToken();
+            }
+            return new LsToken(slicedUserInput);
+        }
+        else if (currToken == "mkdir") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new MkdirToken(slicedUserInput);
+        }
+        else if (currToken == "test") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new TestToken(slicedUserInput);
+        }
+        else if (currToken == "[") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new TestToken(slicedUserInput);
+        }
+        else if (currToken == "exit") {
+            return new ExitToken();
+        }
+    }
+    
+    return new ExitToken();
 }
 
 Token* Tokenizer::tokenize(vector<string> userInput) {
@@ -367,12 +497,130 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
     vector<string> v = userInput;
     
     v = flipVector(v);
+    v = seperator(v);
     v = makePostFix(v);
     v = flipVector(v);
     
+    return tok(v);
     
+    /*int temp1, temp2;
+    vector<string> slicedUserInput;
     
+    for (unsigned i = 0; i < v.size(); ++i) {
+        currToken = v.at(i);
+        if (currToken == "&&") {
+            Token* T = new AndToken();
+            temp1 = i+1; temp2 = v.size() - 1;
+            slicedUserInput = sliceVector(userInput, temp1, temp2);
+            T->addLeft(tokenize(v));
+            T->addRight(tokenize(v));
+            return T;
+        }
+        else if (currToken == "||") {
+            Token* T = new OrToken();
+            temp1 = i+1; temp2 = v.size() - 1;
+            slicedUserInput = sliceVector(userInput, temp1, temp2);
+            T->addLeft(tokenize(v));
+            T->addRight(tokenize(v));
+            return T;
+        }
+        else if (currToken == ";") {
+            Token* T = new SemicolonToken();
+            temp1 = i+1; temp2 = v.size() - 1;
+            slicedUserInput = sliceVector(userInput, temp1, temp2);
+            T->addLeft(tokenize(v));
+            T->addRight(tokenize(v));
+            return T;
+        }
+        else if (currToken == "echo") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new EchoToken(slicedUserInput);
+        }
+        else if (currToken == "ls") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            if (slicedUserInput.size() == 0) {
+                return new LsToken();
+            }
+            return new LsToken(slicedUserInput);
+        }
+        else if (currToken == "mkdir") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new MkdirToken(slicedUserInput);
+        }
+        else if (currToken == "test") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new TestToken(slicedUserInput);
+        }
+        else if (currToken == "[") {
+            int incrementer = i + 1;
+            currToken = v.at(incrementer);
+            while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
+                   currToken != "test" && currToken != "[" && currToken != "exit"
+                   && incrementer < v.size()) {
+                slicedUserInput.push_back(currToken);
+                ++incrementer;
+                if (incrementer < v.size()) {
+                    currToken = v.at(incrementer);
+                }
+            }
+            temp1 = i; temp2 = v.size() - 1;
+            v = sliceVector(v, temp1, temp2);
+            return new TestToken(slicedUserInput);
+        }
+        else if (currToken == "exit") {
+            return new ExitToken();
+        }
+    }
     
+    return new ExitToken();*/
     
     
     

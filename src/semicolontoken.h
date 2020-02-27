@@ -5,6 +5,7 @@
 
 class SemicolonToken : public Token {
 public:
+    SemicolonToken() : Token() {}
     SemicolonToken(Token* l, Token* r) : Token() {
         left = l;
         right = r;
