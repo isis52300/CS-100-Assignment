@@ -255,7 +255,7 @@ Token* Tokenizer::tok(vector<string> &v) {
             return T;
         }
         else if (currToken == "echo") {
-            int incrementer = i;
+            int incrementer = i+1;
             currToken = v.at(incrementer);
             while (currToken != "echo" && currToken != "ls" && currToken != "mkdir" &&
                    currToken != "test" && currToken != "[" && currToken != "exit"
