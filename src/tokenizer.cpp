@@ -6,8 +6,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <stack>
-#include <queue>
 
 #include "tokenizer.h"
 #include "token.h"
@@ -86,8 +84,8 @@ vector<string> Tokenizer::seperator(const vector<string> &originalVector) {
         if (currWord.size() != 1 && currWord.at(currWord.size() - 1) == ';') {
             currWord.pop_back();
             if(i != v.size() - 1) {
-                v.at(i+1) = currWord;
-                insert(v, ";", i+2);
+                v.at(i) = currWord;
+                insert(v, ";", i+1);
                 currWord = v.at(i+1);
             }
             else {
@@ -159,14 +157,65 @@ vector<string> Tokenizer::flipVector(const vector<string> &originalVector) {
 
 vector<string> makePostFix(vector<string> &originalVector) {
     
+    vector<string> s;
+    vector<string> q;
+    string currToken;
     
+    for (unsigned i = 0; i < originalVector.size(); ++i) {
+        
+        currToken = originalVector.at(i);
+        if (currToken == "echo" ||
+            currToken == "mkdir" ||
+            currToken == "ls" ||
+            currToken == "exit" ||
+            currToken == "test" ||
+            currToken == "[") {
+            int incrementer = i;
+            while ((currToken != "&&" && currToken != "||" &&
+                    currToken != ";" && currToken != "(" && currToken != ")")
+                   && (incrementer < originalVector.size())) {
+                q.push_back(currToken);
+                ++incrementer;
+                if (incrementer < originalVector.size()) {
+                    currToken = originalVector.at(incrementer);
+                }
+            }
+            i = incrementer - 1;
+        }
+        else if (currToken == "&&" || currToken == "||" || currToken == ";") {
+            if (s.size() != 0) {
+                while ((s.at(s.size() - 1) != "(") &&
+                       (s.at(s.size() - 1) == "&&" || s.at(s.size() - 1) == "||" || s.at(s.size() - 1) == ";")) {
+                    q.push_back(s.at(s.size() - 1));
+                    s.pop_back();
+                }
+            }
+            s.push_back(currToken);
+        }
+        else if (currToken == "(") {
+            s.push_back(currToken);
+        }
+        else if (currToken == ")") {
+            while (s.at(s.size() - 1) != "(") {
+                q.push_back(s.at(s.size() - 1));
+                s.pop_back();
+            }
+            s.pop_back();
+        }
+        
+    }
     
+    while (s.size() != 0) {
+        q.push_back(s.at(s.size() - 1));
+        s.pop_back();
+    }
     
+    return q;
     
 }
 
 Token* Tokenizer::tokenize(vector<string> userInput) {
-    unsigned i;
+   /* unsigned i;
     int temp1, temp2;
     string currentToken, editedCurrentToken, otherToken;
     vector<string> slicedUserInput1, slicedUserInput2;
@@ -313,7 +362,22 @@ Token* Tokenizer::tokenize(vector<string> userInput) {
         return new TestToken(slicedUserInput1);
     }
     
-    return new ExitToken();
+    return new ExitToken();*/
+    
+    vector<string> v = userInput;
+    
+    v = flipVector(v);
+    v = makePostFix(v);
+    v = flipVector(v);
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 #endif //__TOKENIZER_CPP__
