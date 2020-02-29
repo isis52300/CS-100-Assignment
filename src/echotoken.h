@@ -17,9 +17,10 @@ public:
 	vector<char *> argv(argument.size() + 2);
         string echo = "echo";
         argv[0] = &echo[0];
+        unsigned argIndex = 1;
 	for (unsigned i = 1; i < argument.size(); ++i){
                 
-		if (argument.at(i).at(0) == '\"' && argument.at(i).at(argument.at(i).size() -1) == '\"') {
+		/*if (argument.at(i).at(0) == '\"' && argument.at(i).at(argument.size() -1) == '\"') {
 		     argument.at(i) = argument.at(i).substr(1, argument.at(i).size() -2 );
 		}
 		if (argument.at(i).at(0) == '\"') {
@@ -27,8 +28,11 @@ public:
                 }
                 if (argument.at(i).at(argument.at(i).size() -1) == '\"') {
                      argument.at(i) = argument.at(i).substr(0, argument.at(i).size() -1 );
+                }*/
+                if (argument.at(i) != "\"") {
+    		      argv[argIndex] = &argument[i][0];
+                      ++argIndex;
                 }
-    		argv[i] = &argument[i][0];
 	}
 
    

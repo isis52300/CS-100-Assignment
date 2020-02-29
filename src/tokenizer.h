@@ -23,7 +23,7 @@ class Tokenizer {
     
     Tokenizer();
     Token* tokenize(vector<string> userInput);
-    Token* tok(vector<string> &v);
+    Token* tok(vector<string> &v, unsigned &startIndex);
     
 	protected:
     vector<string> sliceVector(const vector<string> &originalVector, int startIndex, int endIndex);
